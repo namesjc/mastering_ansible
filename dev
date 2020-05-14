@@ -1,0 +1,12 @@
+[webserver]
+web ansible_python_interpreter=/usr/bin/python3
+
+
+[localshost]
+control ansible_python_interpreter=/usr/bin/python3 ansible_connection=local
+
+[database]
+db ansible_python_interpreter=/usr/bin/python3
+
+[loadbalancer]
+lb ansible_python_interpreter=/usr/bin/python3
