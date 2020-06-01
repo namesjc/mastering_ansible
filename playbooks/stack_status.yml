@@ -4,6 +4,7 @@
   tasks:
     - name: verify nginx service
       command: service nginx status
+      changed_when: false
 
     - name: verify nginx is listening on 80
       wait_for: port=80 timeout=1
@@ -13,10 +14,11 @@
   tasks:
     - name: verify apache2 service
       command: service apache2 status
+      changed_when: false
 
     - name: verify apache2 is listening on 80
       wait_for: port=80 timeout=1
-    
+
 - hosts: database
   become: true
   tasks:
@@ -46,7 +48,6 @@
       when: "'Database Connected from' not in item.content"
       with_items: "{{lb_db.results}}"
 
-
 - hosts: loadbalancer
   tasks:
     - name: verify end-to-end response
@@ -56,7 +57,7 @@
 
     - fail: msg='index failed to return content'
       when: "'Hello, from sunny {{item.item}}' not in item.content"
-      with_items: '{{app_index.results}}'
+      with_items: "{{app_index.results}}"
 
     - name: verify backend db response
       uri: url=http://{{item}}/db return_content=yes

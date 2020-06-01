@@ -1,7 +1,7 @@
 ---
-    - hosts: webserver
-      become: true
-      roles:
-        - apache2
-        - { role: demo-app, db_name: demo, db_user: demo, db_pass: password }
-
+- hosts: webserver
+  become: true
+  roles:
+    - apache2
+    # - { role: demo-app, db_name: demo, db_user: demo, db_pass: password }
+    - demo-app
